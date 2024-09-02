@@ -16,9 +16,9 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     try {
-      await handleLogin();
+      await handleLogin(email, password);
       navigate(from, { replace: true });
-    } catch (err) {
+    } catch {
       setError('Failed to log in');
     }
   };
