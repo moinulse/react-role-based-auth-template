@@ -10,11 +10,20 @@ export function getUser(): Promise<User> {
     });
 }
 
-export function login(username: string, password: string): Promise<{ success: boolean; user?: User; message?: string }> {
-    if (username === 'user' && password === 'pass') {
-        return getUser().then(user => ({ success: true, user }));
-    }
-    return Promise.resolve({ success: false, message: 'Invalid credentials' });
+export async function login(
+  username: string,
+  password: string
+): Promise<{
+  success: boolean;
+  user?: User;
+  authToken?: string;
+  message?: string;
+}> {
+  if (username === "user" && password === "pass") {
+    const user = await getUser();
+    return Promise.resolve({ success: true, user, authToken: "1234" });
+  }
+  return Promise.resolve({ success: false, message: "Invalid credentials" });
 }
 
 export function logout(): Promise<{ success: boolean; message: string }> {
